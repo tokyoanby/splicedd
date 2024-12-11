@@ -98,7 +98,7 @@ export default function SampleListEntry(
     decodedSample = decodeSpliceAudio(new Uint8Array(resp!.data));
   }
 
-  const sanitizePath = (x: string) => x.replace(/[<>:"|?*]/g, "_");
+  const sanitizePath = (x: string) => x.replace(/[<>:"|?* ]/g, "_");
 
   async function handleDrag(ev: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     // Verify that the parent of the element that we began the dragging from

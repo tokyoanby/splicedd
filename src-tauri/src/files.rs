@@ -13,7 +13,7 @@ pub async fn write_sample_file(base_dir: String, relative_path: String, buffer: 
 
     if let Some(parent_dir) = full_path.parent() {
         if let Err(e) = fs::create_dir_all(parent_dir) {
-            return Err(format!("Failed to create directories: {}", e));
+            return Err(format!("Failed to create directories for {full_path:#?}: {e}"));
         }
     } else {
         return Err("Failed to determine parent directory".into());
@@ -48,7 +48,7 @@ pub async fn create_placeholder_file(base_dir: String, relative_path: String) ->
 
     if let Some(parent_dir) = full_path.parent() {
         if let Err(e) = fs::create_dir_all(parent_dir) {
-            return Err(format!("Failed to create directories: {}", e));
+            return Err(format!("Failed to create directories for {full_path:#?}: {e}"));
         }
     } else {
         return Err("Failed to determine parent directory".into());
