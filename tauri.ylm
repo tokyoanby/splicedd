@@ -1,0 +1,32 @@
+name: Build Tauri App
+
+on:
+  push:
+    branches:
+      - main  # Если у тебя другая ветка, поменяй здесь
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Клонируем репозиторий
+        uses: actions/checkout@v3
+
+      - name: Устанавливаем Node.js и Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Устанавливаем Tauri CLI
+        run: cargo install tauri-cli
+
+      - name: Устанавливаем зависимости
+        run: npm install
+
+      - name: Собираем проект
+        run: npm run tauri build
+
+      - name: Загружаем результат в артефакты
+        uses: actions/upload-artifact@v3
+        with:
+          name: splicedd-build
+          path: src-tauri/target/release/
