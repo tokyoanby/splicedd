@@ -55,10 +55,8 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Set PKG_CONFIG_PATH
-        run: |
-          echo "/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
-          echo "PKG_CONFIG_PATH is set to: $PKG_CONFIG_PATH"
+      - name: Set PKG_CONFIG_PATH environment variable
+        run: echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
 
       - name: Build Tauri App with verbose output
         run: |
