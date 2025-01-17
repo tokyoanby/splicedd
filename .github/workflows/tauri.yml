@@ -1,0 +1,35 @@
+name: Build Tauri App
+
+on:
+  workflow_dispatch:  # Позволяет запускать вручную
+  push:
+    branches:
+      - main  # Запускается при коммите в main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Tauri App
+        run: npm run tauri build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tauri-app
+          path: src-tauri/target/release/bundle/
