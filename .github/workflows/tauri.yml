@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # Позволяет запускать вручную
   push:
     branches:
-      - main  # Запускается при коммите в main
+      - main  # Запуск при коммите в main
 
 jobs:
   build:
@@ -13,6 +13,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Install system dependencies
+        run: sudo apt update && sudo apt install -y libgtk-3-dev pkg-config
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
